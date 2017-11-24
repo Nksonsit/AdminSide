@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolbar_textsize">18sp</dimen>
+
+    <dimen name="unselected_tab">14sp</dimen>
+    <dimen name="selected_tab">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="border_radius">14dp</dimen>
+    <dimen name="img_width">90dp</dimen>
+    <dimen name="img_height">90dp</dimen>
+
+</resources>

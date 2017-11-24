@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0097A7</color>
+    <color name="colorPrimaryDark2">#006064</color>
+    <color name="colorPrimaryDark">#002729</color>
+    <color name="colorAccent">#FF9800</color>
+
+    <color name="light_green">#86c268</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="smokeWhite">#F5F5F5</color>
+    <color name="grey">#808080</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="pink">#FF3E56</color>
+
+    <color name="darkgrey">#666666</color>
+
+    <color name="strip1">#844AE7</color>
+    <color name="strip2">#FF9338</color>
+    <color name="strip3">#42A5EF</color>
+    <color name="strip4">#FF4141</color>
+    <color name="strip5">#5A29A4</color>
+
+    <color name="color1">#EF8F1C</color>
+    <color name="color2">#2978D9</color>
+    <color name="color3">#00B49A</color>
+    <color name="color4">#43A047</color>
+
+    <color name="tile1">#bb6666</color>
+    <color name="tile2">#af4c4c</color>
+
+    <color name="green">#43A047</color>
+    <color name="silver">#dfdfdf</color>
+
+    <color name="summer">#eebd82</color>
+    <color name="fall">#d8d27e</color>
+    <color name="winter">#a1c1da</color>
+    <color name="spring">#8da64b</color>
+    <color name="today">#4b82ff</color>
+    <color name="greyed_out">#c7c7c7</color>
+
+
+    <color name="dark_gray">#282a2b</color>
+    <color name="on_going_color">#FFA500</color>
+    <color name="completed_color">#00B300</color>
+    <color name="planned_visited_color">#6596ed</color>
+
+    <color name="webmyne_bg">#F98221</color>
+    <color name="webmyne_light">#fef2e8</color>
+
+    <color name="offline_bg">#DEE4B2</color>
+    <color name="online_bg">#B2DBE4</color>
+    <color name="trans_black">#66000000</color>
+    <color name="trans_primary">#99234f7c</color>
+    <color name="indicator_black">#33000000</color>
+    <color name="trans_dark_black">#000000</color>
+
+    <color name="light_purple">#8c61b3</color>
+    <color name="light_orange">#ffb500</color>
+    <color name="light_cyan">#00BCD4</color>
+
+    <color name="appBGColor">#ffffff</color>
+    <color name="lightOrangeColor">#EB984E</color>
+
+    <color name="fontColor">#5d5d5d</color>
+
+    <color name="chat_online">#2EB12B</color>
+    <color name="chat_online_border">#7EEEC8</color>
+    <color name="chat_offline">#BFC595</color>
+    <color name="chat_offline_border">#D2D8A6</color>
+
+    <color name="itemCardBG">#b9dfe9</color>
+    <color name="transItemCardBG">#CCb9dfe9</color>
+    <color name="FabBG">#383838</color>
+    <color name="yellow_icon">#FFEA00</color>
+
+    <color name="dialogTabLight">@color/white</color>
+    <color name="dialogTabDark">@color/white</color>
+
+    <color name="accent_blue">#2978D9</color>
+    <color name="selected_blue">#3F51B5</color>
+
+    <color name="red">#F44336</color>
+    <color name="image_bg">#e3e3e3</color>
+    <color name="off_white">#e3e3e3</color>
+    <color name="gray_light">#e8e8e8</color>
+    <color name="half_black">#5d5d5d</color>
+    <color name="bg">#9d9d9d</color>
+
+    <color name="facebook">#3D5A99</color>
+    <color name="google">#DF4A32</color>
+
+    <color name="gray_dark_transparent">#ae858585</color>
+
+    <!--<color name="button_color">#414141</color>-->
+    <color name="splash_text">#565656</color>
+
+    <color name="button_color">#383838</color>
+    <color name="button_pressed_color">#002856</color>
+
+    <color name="blue">#1565C0</color>
+
+    <color name="selected">#2557a6</color>
+    <color name="un_selected">@color/colorPrimary</color>
+
+    <color name="button_bg">#FDB32A</color>
+    <color name="trans_button_bg">#CCFDB32A</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="offer_bg_color">#CC00B49A</color>
+
+    <color name="cherry">#ff0000</color>
+
+    <array name="tag_colors">
+        <item>#F44336</item>
+        <item>#E91E63</item>
+        <item>#9C27B0</item>
+        <item>#673AB7</item>
+        <item>#3F51B5</item>
+        <item>#03A9F4</item>
+        <item>#00BCD4</item>
+        <item>#009688</item>
+        <item>#4CAF50</item>
+        <item>#8BC34A</item>
+        <item>#827717</item>
+        <item>#FF9800</item>
+        <item>#E65100</item>
+        <item>#FF5722</item>
+        <item>#795548</item>
+        <item>#616161</item>
+        <item>#607D8B</item>
+        <item>#263238</item>
+        <item>#D50000</item>
+        <item>#AA00FF</item>
+    </array>
+</resources>

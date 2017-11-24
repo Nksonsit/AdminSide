@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TfTextView">
+        <attr name="ftype">
+            <enum name="regular" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+        <attr name="isItalic" format="boolean" />
+        <attr name="isUnderline" format="boolean" />
+        <attr name="isStrikeThrough" format="boolean" />
+    </declare-styleable>
+
+</resources>

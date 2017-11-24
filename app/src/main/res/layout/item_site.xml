@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardElevation="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:contentPadding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.myapp.adminside.custom.TfTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Site"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            app:ftype="bold" />
+
+        <com.myapp.adminside.custom.TfTextView
+            android:id="@+id/txtSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Web site"
+            app:ftype="regular" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="4dp" />
+
+        <com.myapp.adminside.custom.TfTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:text="Description"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            app:ftype="bold" />
+
+        <com.myapp.adminside.custom.TfTextView
+            android:id="@+id/txtDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            app:ftype="regular" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="4dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.myapp.adminside.custom.TfTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="Distance"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    app:ftype="bold" />
+
+                <com.myapp.adminside.custom.TfTextView
+                    android:id="@+id/txtDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    app:ftype="regular" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/imgDelete"
+                android:padding="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit" />
+
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="4dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_delete" />
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

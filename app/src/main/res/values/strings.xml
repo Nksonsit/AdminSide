@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Speed Test</string>
+    <string name="check_internet">Please check your intenet connection</string>
+    <string name="add_dl_ul"><![CDATA[Add DL & UL]]></string>
+
+
+    <string name="GPSAlertDialogTitle">GPS is setting</string>
+    <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>
+</resources>
