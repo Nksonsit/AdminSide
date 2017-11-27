@@ -22,14 +22,23 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.gun0912.tedpermission.PermissionListener;
 import com.myapp.adminside.R;
+import com.myapp.adminside.api.AppApi;
 import com.myapp.adminside.custom.TfButton;
 import com.myapp.adminside.custom.TfEditText;
 import com.myapp.adminside.custom.TfTextView;
 import com.myapp.adminside.helper.Functions;
 import com.myapp.adminside.helper.GPSTracker;
+import com.myapp.adminside.helper.MyApplication;
+import com.myapp.adminside.helper.PrefUtils;
+import com.myapp.adminside.helper.ProgressBarHelper;
+import com.myapp.adminside.model.BaseResponse;
 import com.myapp.adminside.model.Site;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddSiteActivity extends AppCompatActivity {
 
@@ -43,6 +52,8 @@ public class AddSiteActivity extends AppCompatActivity {
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
     private double latitude = 0;
     private double longitude = 0;
+    private ProgressBarHelper progressBar;
+    private Site site;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +68,20 @@ public class AddSiteActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-        Functions.setPermission(AddSiteActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                displayLocationSettingsRequest(AddSiteActivity.this);
-            }
+                Functions.setPermission(AddSiteActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        displayLocationSettingsRequest(AddSiteActivity.this);
+                    }
 
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Functions.showToast(AddSiteActivity.this, "You have denied service");
-                onBackPressed();
-            }
-        });
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                        Functions.showToast(AddSiteActivity.this, "You have denied service");
+                        onBackPressed();
+                    }
+                });
             }
         }.start();
-
 
 
     }
@@ -130,6 +140,7 @@ public class AddSiteActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Functions.hideKeyPad(AddSiteActivity.this, view);
                 if (!Functions.isConnected(AddSiteActivity.this)) {
                     Functions.showToast(AddSiteActivity.this, "Please check your intrnet connection");
                     return;
@@ -149,15 +160,39 @@ public class AddSiteActivity extends AppCompatActivity {
                     return;
                 }
 
-                Site site = new Site();
                 site.setSite(edtSite.getText().toString().trim());
                 site.setDescription(edtDescription.getText().toString().trim());
                 site.setDistance(edtDistance.getText().toString().trim());
-                site.setLat(""+latitude);
-                site.setLong(""+longitude);
+                site.setLatitude("" + latitude);
+                site.setLongitude("" + longitude);
+                site.setUserId(PrefUtils.getUserID(AddSiteActivity.this));
 
-                Functions.showToast(AddSiteActivity.this, "Successfully added");
-                onBackPressed();
+                callApi();
+            }
+        });
+    }
+
+    private void callApi() {
+        progressBar.showProgressDialog();
+        Log.e("add site req", MyApplication.getGson().toJson(site));
+        AppApi api = MyApplication.getRetrofit().create(AppApi.class);
+        api.addSite(site).enqueue(new Callback<BaseResponse<Site>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<Site>> call, Response<BaseResponse<Site>> response) {
+                progressBar.hideProgressDialog();
+                if (response.body() != null && response.body().getStatus() == 1) {
+                    Log.e("add site res", MyApplication.getGson().toJson(response.body()));
+                    Functions.showToast(AddSiteActivity.this, "Successfully added");
+                    onBackPressed();
+                } else {
+                    Functions.showToast(AddSiteActivity.this, getString(R.string.try_again));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<Site>> call, Throwable t) {
+                progressBar.hideProgressDialog();
+                Functions.showToast(AddSiteActivity.this, getString(R.string.try_again));
             }
         });
     }
@@ -168,6 +203,7 @@ public class AddSiteActivity extends AppCompatActivity {
     }
 
     private void init() {
+        progressBar = new ProgressBarHelper(this, false);
         btnSubmit = (TfButton) findViewById(R.id.btnSubmit);
         edtDistance = (TfEditText) findViewById(R.id.edtDistance);
         edtDescription = (TfEditText) findViewById(R.id.edtDescription);
@@ -176,7 +212,7 @@ public class AddSiteActivity extends AppCompatActivity {
         txtTitle = (TfTextView) findViewById(R.id.txtTitle);
         initToolbar();
 
-        Site site = (Site) getIntent().getSerializableExtra("site");
+        site = (Site) getIntent().getSerializableExtra("site");
         if (site != null) {
             edtSite.setText(site.getSite());
             edtDescription.setText(site.getDescription());
@@ -189,8 +225,8 @@ public class AddSiteActivity extends AppCompatActivity {
         GPSTracker gpsTracker = new GPSTracker(this);
 
         if (gpsTracker.getIsGPSTrackingEnabled()) {
-            latitude=gpsTracker.getLatitude();
-            longitude=gpsTracker.getLongitude();
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
             Log.e("lat long", gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
         }
     }

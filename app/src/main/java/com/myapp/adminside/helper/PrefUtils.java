@@ -32,12 +32,12 @@ public class PrefUtils {
         return Prefs.with(ctx).getBoolean(LOGGED_IN, false);
     }
 
-    public static void setUserID(Context ctx, int value) {
+    public static void setUserID(Context ctx, String value) {
         Prefs.with(ctx).save(USER_ID, value);
     }
 
-    public static int getUserID(Context ctx) {
-        return Prefs.with(ctx).getInt(USER_ID, 0);
+    public static String getUserID(Context ctx) {
+        return Prefs.with(ctx).getString(USER_ID, "0");
     }
 
     public static void setUserFullProfileDetails(Context context, User userProfile) {

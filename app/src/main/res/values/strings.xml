@@ -6,4 +6,5 @@
 
     <string name="GPSAlertDialogTitle">GPS is setting</string>
     <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to setting menu</string>
+    <string name="try_again">Something went wrong try again later</string>
 </resources>

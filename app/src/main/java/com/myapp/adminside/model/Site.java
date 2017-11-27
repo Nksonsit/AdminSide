@@ -7,26 +7,45 @@ import java.io.Serializable;
  */
 
 public class Site implements Serializable{
-    private String Lat;
-    private String Long;
+    private String Id;
+    private String Latitude;
+    private String Longitude;
+    private String Timestamp;
     private String Site;
+    private String UserId;
     private String Description;
     private String Distance;
 
-    public String getLat() {
-        return Lat;
+    public String getId() {
+        return Id;
     }
 
-    public void setLat(String lat) {
-        Lat = lat;
+    public void setId(String id) {
+        Id = id;
     }
 
-    public String getLong() {
-        return Long;
+    public String getLatitude() {
+        return Latitude;
     }
 
-    public void setLong(String aLong) {
-        Long = aLong;
+    public void setLatitude(String latitude) {
+        Latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        Longitude = longitude;
+    }
+
+    public String getTimestamp() {
+        return Timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        Timestamp = timestamp;
     }
 
     public String getSite() {
@@ -35,6 +54,14 @@ public class Site implements Serializable{
 
     public void setSite(String site) {
         Site = site;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public String getDescription() {

@@ -5,17 +5,26 @@ package com.myapp.adminside.model;
  */
 
 public class User {
-    private int UserId;
+    private String UserId;
     private String FirstName;
     private String LastName;
     private String EmailId;
     private String Password;
+    private int Type;
 
-    public int getUserId() {
+    public int getType() {
+        return Type;
+    }
+
+    public void setType(int type) {
+        Type = type;
+    }
+
+    public String getUserId() {
         return UserId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         UserId = userId;
     }
 

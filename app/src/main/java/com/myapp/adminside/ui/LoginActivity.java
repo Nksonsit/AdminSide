@@ -4,16 +4,25 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 
 import com.myapp.adminside.R;
+import com.myapp.adminside.api.AppApi;
 import com.myapp.adminside.custom.TfButton;
 import com.myapp.adminside.custom.TfEditText;
 import com.myapp.adminside.custom.TfTextView;
 import com.myapp.adminside.helper.AdvancedSpannableString;
 import com.myapp.adminside.helper.Functions;
+import com.myapp.adminside.helper.MyApplication;
 import com.myapp.adminside.helper.PrefUtils;
+import com.myapp.adminside.helper.ProgressBarHelper;
+import com.myapp.adminside.model.BaseResponse;
 import com.myapp.adminside.model.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private TfButton btnSignIn;
     private TfTextView txtSignUp;
     private CardView loginView;
+    private ProgressBarHelper progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                User user = PrefUtils.getUserProfileDetails(LoginActivity.this);
-                if (user == null) {
-                    Functions.showToast(LoginActivity.this, "Wrong credential");
-                    return;
-                } else {
-                    if (user.getEmailId().equals(edtEmailId.getText().toString().trim()) && user.getPassword().equals(edtPassword.getText().toString().trim())) {
-                        PrefUtils.setLoggedIn(LoginActivity.this, true);
-                        Functions.fireIntent(LoginActivity.this, MainActivity.class, true);
-                        finish();
-                    } else {
-                        Functions.showToast(LoginActivity.this, "Wrong credential");
-                        return;
-                    }
-                }
+               callApi();
 
             }
         });
@@ -85,7 +82,44 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void callApi() {
+        User user = new User();
+        user.setPassword(edtPassword.getText().toString().trim());
+        user.setEmailId(edtEmailId.getText().toString().trim());
+        user.setType(2);
+        progressBar.showProgressDialog();
+        AppApi api = MyApplication.getRetrofit().create(AppApi.class);
+        Log.e("login req", MyApplication.getGson().toJson(user));
+        api.getLogin(user).enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                progressBar.hideProgressDialog();
+                if (response.body() != null && response.body().getStatus() == 1) {
+                    Log.e("login res", MyApplication.getGson().toJson(response.body()));
+                    if (response.body().getData() != null && response.body().getData().size() > 0) {
+                        PrefUtils.setLoggedIn(LoginActivity.this, true);
+                        PrefUtils.setUserFullProfileDetails(LoginActivity.this, response.body().getData().get(0));
+                        Functions.fireIntent(LoginActivity.this, MainActivity.class, true);
+                        Functions.showToast(LoginActivity.this,"Successfully Login");
+                        finish();
+                    } else {
+                        Functions.showToast(LoginActivity.this, "Wrong credential");
+                    }
+                } else {
+                    Functions.showToast(LoginActivity.this, "Wrong credential");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                progressBar.hideProgressDialog();
+                Functions.showToast(LoginActivity.this,"Something went wrong please try again later");
+            }
+        });
+
+    }
     private void init() {
+        progressBar = new ProgressBarHelper(this, false);
         loginView = (CardView) findViewById(R.id.loginView);
         txtSignUp = (TfTextView) findViewById(R.id.txtSignUp);
         btnSignIn = (TfButton) findViewById(R.id.btnSignIn);
