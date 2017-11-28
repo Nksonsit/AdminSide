@@ -14,6 +14,7 @@ import com.myapp.adminside.api.AppApi;
 import com.myapp.adminside.custom.TfTextView;
 import com.myapp.adminside.helper.Functions;
 import com.myapp.adminside.helper.MyApplication;
+import com.myapp.adminside.helper.PrefUtils;
 import com.myapp.adminside.model.BaseResponse;
 import com.myapp.adminside.model.Site;
 import com.myapp.adminside.ui.AddSiteActivity;
@@ -80,6 +81,14 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             txtDistance.setText(site.getDistance());
             txtDesc.setText(site.getDescription());
             txtSite.setText(site.getSite());
+
+            if(site.getUserId().equalsIgnoreCase(PrefUtils.getUserID(context))){
+                imgEdit.setVisibility(View.VISIBLE);
+                imgDelete.setVisibility(View.VISIBLE);
+            }else{
+                imgEdit.setVisibility(View.GONE);
+                imgDelete.setVisibility(View.GONE);}
+
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -159,7 +159,9 @@ public class AddSiteActivity extends AppCompatActivity {
                     Functions.showToast(AddSiteActivity.this, "Please enter distance");
                     return;
                 }
-
+                if (site == null) {
+                    site = new Site();
+                }
                 site.setSite(edtSite.getText().toString().trim());
                 site.setDescription(edtDescription.getText().toString().trim());
                 site.setDistance(edtDistance.getText().toString().trim());

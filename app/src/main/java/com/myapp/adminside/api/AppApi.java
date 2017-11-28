@@ -28,7 +28,7 @@ public interface AppApi {
     @GET("GetSites.php")
     Call<BaseResponse<Site>> getSite();
 
-    @POST("DeleteSites.php")
+    @POST("DeleteSite.php")
     Call<BaseResponse<Site>> deleteSite(@Body Site site);
 
 
