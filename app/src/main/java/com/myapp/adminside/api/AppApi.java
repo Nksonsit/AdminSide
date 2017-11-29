@@ -3,6 +3,7 @@ package com.myapp.adminside.api;
 
 import com.myapp.adminside.model.BaseResponse;
 import com.myapp.adminside.model.Site;
+import com.myapp.adminside.model.Stuts;
 import com.myapp.adminside.model.User;
 
 import retrofit2.Call;
@@ -31,5 +32,7 @@ public interface AppApi {
     @POST("DeleteSite.php")
     Call<BaseResponse<Site>> deleteSite(@Body Site site);
 
+    @GET("GetStuts.php")
+    Call<BaseResponse<Stuts>> getStuts();
 
 }

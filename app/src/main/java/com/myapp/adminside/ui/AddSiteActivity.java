@@ -168,6 +168,7 @@ public class AddSiteActivity extends AppCompatActivity {
                 site.setLatitude("" + latitude);
                 site.setLongitude("" + longitude);
                 site.setUserId(PrefUtils.getUserID(AddSiteActivity.this));
+                site.setTimestamp(Functions.getTimestamp());
 
                 callApi();
             }

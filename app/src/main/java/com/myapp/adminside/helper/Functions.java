@@ -362,4 +362,10 @@ public class Functions {
         return resizedBitmap;
     }
 
+    public static String getTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String output = sdf.format(date);
+        return output.replace("-", "");
+    }
 }
