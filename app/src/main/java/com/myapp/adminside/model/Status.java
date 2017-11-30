@@ -4,12 +4,15 @@ package com.myapp.adminside.model;
  * Created by ishan on 29-11-2017.
  */
 
-public class Stuts {
+public class Status {
     private String Id;
     private String Site;
     private String Dl;
     private String Ul;
-    private String Total;
+    private String TotalDl;
+    private String TotalUl;
+    private String AvgDl;
+    private String AvgUl;
     private String Count;
 
     public String getId() {
@@ -44,12 +47,36 @@ public class Stuts {
         Ul = ul;
     }
 
-    public String getTotal() {
-        return Total;
+    public String getTotalDl() {
+        return TotalDl;
     }
 
-    public void setTotal(String total) {
-        Total = total;
+    public void setTotalDl(String totalDl) {
+        TotalDl = totalDl;
+    }
+
+    public String getTotalUl() {
+        return TotalUl;
+    }
+
+    public void setTotalUl(String totalUl) {
+        TotalUl = totalUl;
+    }
+
+    public String getAvgDl() {
+        return AvgDl;
+    }
+
+    public void setAvgDl(String avgDl) {
+        AvgDl = avgDl;
+    }
+
+    public String getAvgUl() {
+        return AvgUl;
+    }
+
+    public void setAvgUl(String avgUl) {
+        AvgUl = avgUl;
     }
 
     public String getCount() {

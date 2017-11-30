@@ -14,11 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.myapp.adminside.R;
 import com.myapp.adminside.custom.TfTextView;
 import com.myapp.adminside.fragment.SitesFragment;
-import com.myapp.adminside.fragment.StutsFragment;
+import com.myapp.adminside.fragment.StatusFragment;
 import com.myapp.adminside.helper.Functions;
 
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager container;
     private AppBarLayout appbar;
-    private StutsFragment stutsFragment;
+    private StatusFragment stutsFragment;
+    private ImageView imgLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,22 @@ public class MainActivity extends AppCompatActivity {
                 if (Functions.isConnected(MainActivity.this)) {
                     Functions.fireIntent(MainActivity.this, AddSiteActivity.class, true);
                 } else {
-                    Functions.showToast(MainActivity.this, "Please check your internet connection");
+                    Functions.showToast(MainActivity.this, getString(R.string.check_internet));
                 }
+            }
+        });
+
+        imgLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Functions.showMsg(MainActivity.this, "Are you sure want to logout ?", new Functions.OnDialogButtonClickListener() {
+                    @Override
+                    public void onWhichClick(boolean click) {
+                        if (click) {
+                            Functions.logout(MainActivity.this);
+                        }
+                    }
+                });
             }
         });
     }
@@ -68,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
 
 
+        imgLogout = (ImageView) findViewById(R.id.imgLogout);
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager();
 
@@ -85,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 //                highLightCurrentTab(position);
+                if (position == 1) {
+                    txtAdd.setVisibility(View.GONE);
+                } else {
+                    txtAdd.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -116,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         siteFragment = new SitesFragment();
-        stutsFragment = new StutsFragment();
+        stutsFragment = new StatusFragment();
         adapter.addFragment(siteFragment, "Sites");
-        adapter.addFragment(stutsFragment, "Stuts");
+        adapter.addFragment(stutsFragment, "Status");
 
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(6);
+        mViewPager.setOffscreenPageLimit(2);
 
     }
 

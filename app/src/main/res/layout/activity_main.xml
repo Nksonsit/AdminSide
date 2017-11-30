@@ -8,7 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
+        android:background="@color/colorPrimary"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -38,19 +38,28 @@
                     android:id="@+id/txtAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_toLeftOf="@+id/imgLogout"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
                     android:text="Add Site"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:ftype="bold" />
+
+                <ImageView
+                    android:id="@+id/imgLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logout"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:background="@android:color/transparent"
             android:id="@+id/tabs"
+            android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"

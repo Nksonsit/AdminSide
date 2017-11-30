@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.myapp.adminside.adapter.SiteAdapter;
 import com.myapp.adminside.api.AppApi;
 import com.myapp.adminside.custom.TfButton;
 import com.myapp.adminside.custom.TfTextView;
+import com.myapp.adminside.helper.Functions;
 import com.myapp.adminside.helper.MyApplication;
 import com.myapp.adminside.helper.ProgressBarHelper;
 import com.myapp.adminside.model.BaseResponse;
@@ -50,13 +52,17 @@ public class SitesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        callApi();
+        if (Functions.isConnected(getActivity())) {
+            callApi();
+        } else {
+            Functions.showToast(getActivity(), getActivity().getResources().getString(R.string.check_internet));
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_sites,container,false);
+        view = inflater.inflate(R.layout.fragment_sites, container, false);
         init();
         return view;
     }
@@ -77,12 +83,33 @@ public class SitesFragment extends Fragment {
         });
         list = new ArrayList<>();
 
-        adapter = new SiteAdapter(getActivity(), list);
+        adapter = new SiteAdapter(getActivity(), list, new SiteAdapter.OnListEmpty() {
+            @Override
+            public void onListEmpty() {
+                recyclerView.setVisibility(View.GONE);
+                txtAlert.setVisibility(View.VISIBLE);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getActivity() != null) {
+                if (Functions.isConnected(getActivity())) {
+                    callApi();
+                } else {
+                    Functions.showToast(getActivity(), getActivity().getResources().getString(R.string.check_internet));
+                }
+            }
+        }
+    }
+
     private void callApi() {
+        Log.e("call", "api");
         progressBar.showProgressDialog();
         AppApi api = MyApplication.getRetrofit().create(AppApi.class);
         api.getSite().enqueue(new Callback<BaseResponse<Site>>() {

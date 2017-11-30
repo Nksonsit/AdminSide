@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 
 import com.myapp.adminside.R;
 import com.myapp.adminside.custom.TfTextView;
-import com.myapp.adminside.model.Site;
-import com.myapp.adminside.model.Stuts;
+import com.myapp.adminside.model.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,19 +17,19 @@ import java.util.List;
  * Created by ishan on 22-11-2017.
  */
 
-public class StutsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Stuts> list;
+    private List<Status> list;
     private Context context;
 
-    public StutsAdapter(Context context, List<Stuts> list) {
+    public StatusAdapter(Context context, List<Status> list) {
         this.context = context;
         this.list = list;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_stuts, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_status, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -45,7 +44,7 @@ public class StutsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return list.size();
     }
 
-    public void setDataList(List<Stuts> list) {
+    public void setDataList(List<Status> list) {
         this.list = new ArrayList<>();
         this.list = list;
         notifyDataSetChanged();
@@ -53,19 +52,21 @@ public class StutsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TfTextView txtSite, txtTotalDl, txtAvgDl;
+        private TfTextView txtSite, txtTotalDlUl, txtAvgDl,txtAvgUl;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtSite = (TfTextView) itemView.findViewById(R.id.txtSite);
-            txtTotalDl = (TfTextView) itemView.findViewById(R.id.txtTotalDl);
+            txtTotalDlUl = (TfTextView) itemView.findViewById(R.id.txtTotalDlUl);
             txtAvgDl = (TfTextView) itemView.findViewById(R.id.txtAvgDl);
+            txtAvgUl = (TfTextView) itemView.findViewById(R.id.txtAvgUl);
         }
 
-        public void setValues(Stuts stuts) {
+        public void setValues(Status stuts) {
             txtSite.setText(stuts.getSite());
-            txtTotalDl.setText(stuts.getTotal());
-            txtAvgDl.setText(stuts.getCount());
+            txtTotalDlUl.setText((int)Float.parseFloat(stuts.getCount()) + "");
+            txtAvgDl.setText((int)Float.parseFloat(stuts.getAvgDl()) + "");
+            txtAvgUl.setText((int)Float.parseFloat(stuts.getAvgUl()) + "");
         }
     }
 }

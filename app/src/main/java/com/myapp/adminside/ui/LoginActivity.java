@@ -47,7 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Functions.hideKeyPad(LoginActivity.this,view);
+                Functions.hideKeyPad(LoginActivity.this, view);
+                if (!Functions.isConnected(LoginActivity.this)) {
+                    Functions.showToast(LoginActivity.this, getString(R.string.check_internet));
+                    return;
+                }
                 if (!Functions.isConnected(LoginActivity.this)) {
                     Functions.showToast(LoginActivity.this, getString(R.string.check_internet));
                     return;
@@ -68,14 +72,14 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-               callApi();
+                callApi();
 
             }
         });
         txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Functions.hideKeyPad(LoginActivity.this,view);
+                Functions.hideKeyPad(LoginActivity.this, view);
                 Functions.fireIntent(LoginActivity.this, RegisterActivity.class, true);
                 finish();
             }
@@ -100,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         PrefUtils.setLoggedIn(LoginActivity.this, true);
                         PrefUtils.setUserFullProfileDetails(LoginActivity.this, response.body().getData().get(0));
                         Functions.fireIntent(LoginActivity.this, MainActivity.class, true);
-                        Functions.showToast(LoginActivity.this,"Successfully Login");
+                        Functions.showToast(LoginActivity.this, "Successfully Login");
                         finish();
                     } else {
                         Functions.showToast(LoginActivity.this, "Wrong credential");
@@ -113,11 +117,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
                 progressBar.hideProgressDialog();
-                Functions.showToast(LoginActivity.this,"Something went wrong please try again later");
+                Functions.showToast(LoginActivity.this, "Something went wrong please try again later");
             }
         });
 
     }
+
     private void init() {
         progressBar = new ProgressBarHelper(this, false);
         loginView = (CardView) findViewById(R.id.loginView);

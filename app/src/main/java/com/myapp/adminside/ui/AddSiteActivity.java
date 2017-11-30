@@ -162,8 +162,8 @@ public class AddSiteActivity extends AppCompatActivity {
                 if (site == null) {
                     site = new Site();
                 }
-                site.setSite(edtSite.getText().toString().trim());
-                site.setDescription(edtDescription.getText().toString().trim());
+                site.setSite(edtSite.getText().toString().trim().replace("'","&#39;"));
+                site.setDescription(edtDescription.getText().toString().trim().replace("'","&#39;"));
                 site.setDistance(edtDistance.getText().toString().trim());
                 site.setLatitude("" + latitude);
                 site.setLongitude("" + longitude);

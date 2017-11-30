@@ -2,6 +2,7 @@ package com.myapp.adminside.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,11 +33,16 @@ import retrofit2.Response;
 
 public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private OnListEmpty onListEmpty;
     private List<Site> list;
     private Context context;
+    private static final long MIN_CLICK_INTERVAL = 1000;
 
-    public SiteAdapter(Context context, List<Site> list) {
+    private long mLastClickTime;
+
+    public SiteAdapter(Context context, List<Site> list,OnListEmpty onListEmpty) {
         this.context = context;
+        this.onListEmpty=onListEmpty;
         this.list = list;
     }
 
@@ -79,15 +85,16 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void setValues(Site site) {
             txtDistance.setText(site.getDistance());
-            txtDesc.setText(site.getDescription());
-            txtSite.setText(site.getSite());
+            txtDesc.setText(site.getDescription().replace("&#39;","'"));
+            txtSite.setText(site.getSite().replace("&#39;","'"));
 
-            if(site.getUserId().equalsIgnoreCase(PrefUtils.getUserID(context))){
+            if (site.getUserId().equalsIgnoreCase(PrefUtils.getUserID(context))) {
                 imgEdit.setVisibility(View.VISIBLE);
                 imgDelete.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 imgEdit.setVisibility(View.GONE);
-                imgDelete.setVisibility(View.GONE);}
+                imgDelete.setVisibility(View.GONE);
+            }
 
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,27 +107,50 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imgDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
-                    Log.e("delete site", MyApplication.getGson().toJson(list.get(getAdapterPosition())));
-                    appApi.deleteSite(list.get(getAdapterPosition())).enqueue(new Callback<BaseResponse<Site>>() {
-                        @Override
-                        public void onResponse(Call<BaseResponse<Site>> call, Response<BaseResponse<Site>> response) {
-                            if (response.body() != null && response.body().getStatus() == 1) {
-                                list.remove(getAdapterPosition());
-                                notifyItemRemoved(getAdapterPosition());
-                            } else {
-                                Functions.showToast(context, context.getString(R.string.try_again));
-                            }
-                        }
 
+                    long currentClickTime = SystemClock.uptimeMillis();
+                    long elapsedTime = currentClickTime - mLastClickTime;
+
+                    mLastClickTime = currentClickTime;
+
+                    if (elapsedTime <= MIN_CLICK_INTERVAL)
+                        return;
+
+                    Functions.showMsg(context, "Are you sure want to delete this site?", new Functions.OnDialogButtonClickListener() {
                         @Override
-                        public void onFailure(Call<BaseResponse<Site>> call, Throwable t) {
-                            Functions.showToast(context, context.getString(R.string.try_again));
+                        public void onWhichClick(boolean click) {
+                            if(click){
+                                AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
+                                Log.e("delete site", MyApplication.getGson().toJson(list.get(getAdapterPosition())));
+                                appApi.deleteSite(list.get(getAdapterPosition())).enqueue(new Callback<BaseResponse<Site>>() {
+                                    @Override
+                                    public void onResponse(Call<BaseResponse<Site>> call, Response<BaseResponse<Site>> response) {
+                                        if (response.body() != null && response.body().getStatus() == 1) {
+                                            list.remove(getAdapterPosition());
+                                            notifyItemRemoved(getAdapterPosition());
+
+                                            if(list.size()==0){
+                                                onListEmpty.onListEmpty();
+                                            }
+                                        } else {
+                                            Functions.showToast(context, context.getString(R.string.try_again));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<BaseResponse<Site>> call, Throwable t) {
+                                        Functions.showToast(context, context.getString(R.string.try_again));
+                                    }
+                                });
+                            }
                         }
                     });
 
                 }
             });
         }
+    }
+    public interface OnListEmpty{
+        void onListEmpty();
     }
 }

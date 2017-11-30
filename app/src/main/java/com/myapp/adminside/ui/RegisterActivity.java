@@ -55,6 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Functions.showToast(RegisterActivity.this, getString(R.string.check_internet));
                     return;
                 }
+                if (!Functions.isConnected(RegisterActivity.this)) {
+                    Functions.showToast(RegisterActivity.this, getString(R.string.check_internet));
+                    return;
+                }
                 if (edtFirstName.getText().toString().trim().length() == 0) {
                     Functions.showToast(RegisterActivity.this, "Please enter your first name");
                     return;

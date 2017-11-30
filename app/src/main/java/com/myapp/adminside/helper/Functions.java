@@ -6,7 +6,9 @@ package com.myapp.adminside.helper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -33,6 +35,8 @@ import com.droidbyme.toastlib.ToastLib;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.myapp.adminside.R;
+import com.myapp.adminside.model.User;
+import com.myapp.adminside.ui.LoginActivity;
 
 import java.io.File;
 import java.text.ParseException;
@@ -293,14 +297,12 @@ public class Functions {
     }
 
     public static void logout(Context context) {
-        /*PrefUtils.setLoggedIn(context, false);
-        PrefUtils.setUserSkip(context, false);
+        PrefUtils.setLoggedIn(context, false);
         PrefUtils.setUserFullProfileDetails(context, new User());
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-        ((Activity) context).finish();*/
-
+        ((Activity) context).finish();
     }
 
     public static String getNotNullableString(String input) {
@@ -362,10 +364,35 @@ public class Functions {
         return resizedBitmap;
     }
 
+    public static void showMsg(Context context, String message, final OnDialogButtonClickListener onClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        onClickListener.onWhichClick(false);
+                    }
+                })
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onClickListener.onWhichClick(true);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     public static String getTimestamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String output = sdf.format(date);
         return output.replace("-", "");
+    }
+
+    public interface OnDialogButtonClickListener {
+        void onWhichClick(boolean click);
     }
 }
