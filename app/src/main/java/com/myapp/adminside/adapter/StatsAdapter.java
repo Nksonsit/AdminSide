@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.myapp.adminside.R;
 import com.myapp.adminside.custom.TfTextView;
-import com.myapp.adminside.model.Status;
+import com.myapp.adminside.model.Stats;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.List;
  * Created by ishan on 22-11-2017.
  */
 
-public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class StatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Status> list;
+    private List<Stats> list;
     private Context context;
 
-    public StatusAdapter(Context context, List<Status> list) {
+    public StatsAdapter(Context context, List<Stats> list) {
         this.context = context;
         this.list = list;
     }
@@ -44,7 +44,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return list.size();
     }
 
-    public void setDataList(List<Status> list) {
+    public void setDataList(List<Stats> list) {
         this.list = new ArrayList<>();
         this.list = list;
         notifyDataSetChanged();
@@ -62,7 +62,7 @@ public class StatusAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             txtAvgUl = (TfTextView) itemView.findViewById(R.id.txtAvgUl);
         }
 
-        public void setValues(Status stuts) {
+        public void setValues(Stats stuts) {
             txtSite.setText(stuts.getSite());
             txtTotalDlUl.setText((int)Float.parseFloat(stuts.getCount()) + "");
             txtAvgDl.setText((int)Float.parseFloat(stuts.getAvgDl()) + "");

@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.myapp.adminside.R;
 import com.myapp.adminside.custom.TfTextView;
 import com.myapp.adminside.fragment.SitesFragment;
-import com.myapp.adminside.fragment.StatusFragment;
+import com.myapp.adminside.fragment.StatsFragment;
 import com.myapp.adminside.helper.Functions;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabs;
     private ViewPager container;
     private AppBarLayout appbar;
-    private StatusFragment stutsFragment;
+    private StatsFragment stutsFragment;
     private ImageView imgLogout;
 
     @Override
@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         siteFragment = new SitesFragment();
-        stutsFragment = new StatusFragment();
+        stutsFragment = new StatsFragment();
         adapter.addFragment(siteFragment, "Sites");
-        adapter.addFragment(stutsFragment, "Status");
+        adapter.addFragment(stutsFragment, "Stats");
 
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(2);

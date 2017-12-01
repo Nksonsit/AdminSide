@@ -4,7 +4,7 @@ package com.myapp.adminside.model;
  * Created by ishan on 30-11-2017.
  */
 
-public class StatusReq {
+public class StatsReq {
     private String StartDate;
     private String EndDate;
 

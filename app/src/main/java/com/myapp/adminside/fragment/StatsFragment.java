@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.myapp.adminside.R;
-import com.myapp.adminside.adapter.StatusAdapter;
+import com.myapp.adminside.adapter.StatsAdapter;
 import com.myapp.adminside.api.AppApi;
 import com.myapp.adminside.custom.TfButton;
 import com.myapp.adminside.custom.TfTextView;
@@ -24,8 +24,8 @@ import com.myapp.adminside.helper.Functions;
 import com.myapp.adminside.helper.MyApplication;
 import com.myapp.adminside.helper.ProgressBarHelper;
 import com.myapp.adminside.model.BaseResponse;
-import com.myapp.adminside.model.Status;
-import com.myapp.adminside.model.StatusReq;
+import com.myapp.adminside.model.Stats;
+import com.myapp.adminside.model.StatsReq;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ import retrofit2.Response;
  * Created by ishan on 29-11-2017.
  */
 
-public class StatusFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class StatsFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View view;
 
     private TfTextView txtTitle;
@@ -51,8 +51,8 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
     private TfTextView txtAdd;
     private android.support.v7.widget.RecyclerView recyclerView;
     private TfTextView txtAlert;
-    private List<Status> list;
-    private StatusAdapter adapter;
+    private List<Stats> list;
+    private StatsAdapter adapter;
     private ProgressBarHelper progressBar;
     private TfTextView txtStartDate;
     private TfTextView txtEndDate;
@@ -105,7 +105,7 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
     private void init() {
         topView = (RelativeLayout) view.findViewById(R.id.topView);
         dpd = DatePickerDialog.newInstance(
-                StatusFragment.this,
+                StatsFragment.this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH));
@@ -129,7 +129,7 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
         });
         list = new ArrayList<>();
 
-        adapter = new StatusAdapter(getActivity(), list);
+        adapter = new StatsAdapter(getActivity(), list);
         recyclerView.setAdapter(adapter);
 
     }
@@ -153,7 +153,7 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
     private void callApi() {
         progressBar.showProgressDialog();
         AppApi api = MyApplication.getRetrofit().create(AppApi.class);
-        StatusReq statusReq = new StatusReq();
+        StatsReq statusReq = new StatsReq();
         if (startDate != null && startDate.trim().length() > 0) {
             statusReq.setStartDate(startDate);
         }
@@ -161,9 +161,9 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
             statusReq.setEndDate(endDate);
         }
         Log.e("get status", MyApplication.getGson().toJson(statusReq));
-        api.getStatus(statusReq).enqueue(new Callback<BaseResponse<Status>>() {
+        api.getStatus(statusReq).enqueue(new Callback<BaseResponse<Stats>>() {
             @Override
-            public void onResponse(Call<BaseResponse<Status>> call, Response<BaseResponse<Status>> response) {
+            public void onResponse(Call<BaseResponse<Stats>> call, Response<BaseResponse<Stats>> response) {
                 progressBar.hideProgressDialog();
                 if (response.body() != null && response.body().getStatus() == 1) {
                     if (response.body().getData() != null && response.body().getData().size() > 0) {
@@ -183,7 +183,7 @@ public class StatusFragment extends Fragment implements DatePickerDialog.OnDateS
             }
 
             @Override
-            public void onFailure(Call<BaseResponse<Status>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<Stats>> call, Throwable t) {
                 recyclerView.setVisibility(View.GONE);
                 txtAlert.setVisibility(View.VISIBLE);
                 progressBar.hideProgressDialog();

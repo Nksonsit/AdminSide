@@ -3,8 +3,8 @@ package com.myapp.adminside.api;
 
 import com.myapp.adminside.model.BaseResponse;
 import com.myapp.adminside.model.Site;
-import com.myapp.adminside.model.StatusReq;
-import com.myapp.adminside.model.Status;
+import com.myapp.adminside.model.StatsReq;
+import com.myapp.adminside.model.Stats;
 import com.myapp.adminside.model.User;
 
 import retrofit2.Call;
@@ -34,6 +34,6 @@ public interface AppApi {
     Call<BaseResponse<Site>> deleteSite(@Body Site site);
 
     @POST("GetStatus.php")
-    Call<BaseResponse<Status>> getStatus(@Body StatusReq statusReq);
+    Call<BaseResponse<Stats>> getStatus(@Body StatsReq statusReq);
 
 }

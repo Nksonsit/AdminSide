@@ -54,6 +54,8 @@ public class AddSiteActivity extends AppCompatActivity {
     private double longitude = 0;
     private ProgressBarHelper progressBar;
     private Site site;
+    private TfEditText edtLongitude;
+    private TfEditText edtLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,14 +161,26 @@ public class AddSiteActivity extends AppCompatActivity {
                     Functions.showToast(AddSiteActivity.this, "Please enter distance");
                     return;
                 }
+
+                if (edtLatitude.getText().toString().trim().length() == 0) {
+                    Functions.showToast(AddSiteActivity.this, "Please enter latitude");
+                    return;
+                }
+
+                if (edtLongitude.getText().toString().trim().length() == 0) {
+                    Functions.showToast(AddSiteActivity.this, "Please enter longitude");
+                    return;
+                }
+
                 if (site == null) {
                     site = new Site();
                 }
-                site.setSite(edtSite.getText().toString().trim().replace("'","&#39;"));
-                site.setDescription(edtDescription.getText().toString().trim().replace("'","&#39;"));
+
+                site.setSite(edtSite.getText().toString().trim().replace("'", "&#39;"));
+                site.setDescription(edtDescription.getText().toString().trim().replace("'", "&#39;"));
                 site.setDistance(edtDistance.getText().toString().trim());
-                site.setLatitude("" + latitude);
-                site.setLongitude("" + longitude);
+                site.setLatitude(edtLatitude.getText().toString().trim());
+                site.setLongitude(edtLongitude.getText().toString().trim());
                 site.setUserId(PrefUtils.getUserID(AddSiteActivity.this));
                 site.setTimestamp(Functions.getTimestamp());
 
@@ -211,6 +225,8 @@ public class AddSiteActivity extends AppCompatActivity {
         edtDistance = (TfEditText) findViewById(R.id.edtDistance);
         edtDescription = (TfEditText) findViewById(R.id.edtDescription);
         edtSite = (TfEditText) findViewById(R.id.edtSite);
+        edtLongitude = (TfEditText) findViewById(R.id.edtLongitude);
+        edtLatitude = (TfEditText) findViewById(R.id.edtLatitude);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtTitle = (TfTextView) findViewById(R.id.txtTitle);
         initToolbar();
@@ -231,6 +247,8 @@ public class AddSiteActivity extends AppCompatActivity {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
             Log.e("lat long", gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
+            edtLatitude.setText(latitude + "");
+            edtLongitude.setText(longitude + "");
         }
     }
 

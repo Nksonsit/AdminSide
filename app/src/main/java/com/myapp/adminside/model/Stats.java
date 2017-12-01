@@ -4,7 +4,7 @@ package com.myapp.adminside.model;
  * Created by ishan on 29-11-2017.
  */
 
-public class Status {
+public class Stats {
     private String Id;
     private String Site;
     private String Dl;

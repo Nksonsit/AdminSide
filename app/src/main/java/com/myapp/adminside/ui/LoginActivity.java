@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         User user = new User();
         user.setPassword(edtPassword.getText().toString().trim());
         user.setEmailId(edtEmailId.getText().toString().trim());
-        user.setType(2);
+        user.setType(1);
         progressBar.showProgressDialog();
         AppApi api = MyApplication.getRetrofit().create(AppApi.class);
         Log.e("login req", MyApplication.getGson().toJson(user));
@@ -133,9 +133,9 @@ public class LoginActivity extends AppCompatActivity {
         edtEmailId = (TfEditText) findViewById(R.id.edtEmailId);
         txtTitle = (TfTextView) findViewById(R.id.txtTitle);
 
-        AdvancedSpannableString span = new AdvancedSpannableString("Welcome To Speed Test");
-        span.setBold("Speed Test");
-        span.setColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary), "Speed Test");
+        AdvancedSpannableString span = new AdvancedSpannableString("Welcome To Speed Catch");
+        span.setBold("Speed Catch");
+        span.setColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary), "Speed Catch");
         txtTitle.setText(span);
 
 

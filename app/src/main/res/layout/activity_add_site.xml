@@ -84,14 +84,43 @@
                 android:background="@drawable/edt_bg"
                 android:ellipsize="end"
                 android:hint="Distance"
-                android:lines="1"
                 android:inputType="numberDecimal"
+                android:lines="1"
                 android:maxLines="1"
                 android:padding="8dp" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="8dp" />
+
+            <com.myapp.adminside.custom.TfEditText
+                android:id="@+id/edtLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/edt_bg"
+                android:ellipsize="end"
+                android:hint="Latitude"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="8dp" />
+
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="8dp" />
+
+            <com.myapp.adminside.custom.TfEditText
+                android:id="@+id/edtLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/edt_bg"
+                android:ellipsize="end"
+                android:hint="Longitude"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:padding="8dp" />
         </LinearLayout>
     </ScrollView>
 

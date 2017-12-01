@@ -175,9 +175,9 @@ public class RegisterActivity extends AppCompatActivity {
         txtTitle = (TfTextView) findViewById(R.id.txtTitle);
 
 
-        AdvancedSpannableString span = new AdvancedSpannableString("Welcome To Speed Test");
-        span.setBold("Speed Test");
-        span.setColor(ContextCompat.getColor(RegisterActivity.this, R.color.colorPrimary), "Speed Test");
+        AdvancedSpannableString span = new AdvancedSpannableString("Welcome To Speed Catch");
+        span.setBold("Speed Catch");
+        span.setColor(ContextCompat.getColor(RegisterActivity.this, R.color.colorPrimary), "Speed Catch");
         txtTitle.setText(span);
     }
 }
