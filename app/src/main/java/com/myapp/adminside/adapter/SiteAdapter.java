@@ -88,13 +88,17 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             txtDesc.setText(site.getDescription().replace("&#39;","'"));
             txtSite.setText(site.getSite().replace("&#39;","'"));
 
-            if (site.getUserId().equalsIgnoreCase(PrefUtils.getUserID(context))) {
+          /*  if (site.getUserId().equalsIgnoreCase(PrefUtils.getUserID(context))) {
                 imgEdit.setVisibility(View.VISIBLE);
                 imgDelete.setVisibility(View.VISIBLE);
             } else {
                 imgEdit.setVisibility(View.GONE);
                 imgDelete.setVisibility(View.GONE);
             }
+*/
+
+            imgEdit.setVisibility(View.VISIBLE);
+            imgDelete.setVisibility(View.VISIBLE);
 
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
