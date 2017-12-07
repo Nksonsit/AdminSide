@@ -220,6 +220,15 @@ public class AddSiteActivity extends AppCompatActivity {
     }
 
     private void init() {
+        // check if GPS enabled
+        GPSTracker gpsTracker = new GPSTracker(this);
+
+        if (gpsTracker.getIsGPSTrackingEnabled()) {
+            latitude = gpsTracker.getLatitude();
+            longitude = gpsTracker.getLongitude();
+            Log.e("lat long", gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
+        }
+
         progressBar = new ProgressBarHelper(this, false);
         btnSubmit = (TfButton) findViewById(R.id.btnSubmit);
         edtDistance = (TfEditText) findViewById(R.id.edtDistance);
@@ -237,19 +246,27 @@ public class AddSiteActivity extends AppCompatActivity {
             edtDescription.setText(site.getDescription());
             edtDistance.setText(site.getDistance());
             btnSubmit.setText("UPDATE");
+
+            try {
+                if (site.getLatitude() != null && Double.parseDouble(site.getLatitude()) !=0 ) {
+                    edtLatitude.setText(latitude + "");
+                } else {
+                    edtLatitude.setText(site.getLatitude());
+                }
+            } catch (Exception e) {
+                edtLatitude.setText(latitude + "");
+            }
+            try {
+                if (site.getLongitude() != null && Double.parseDouble(site.getLongitude()) != 0) {
+                    edtLongitude.setText(longitude + "");
+                } else {
+                    edtLongitude.setText(site.getLongitude());
+                }
+            } catch (Exception e) {
+                edtLongitude.setText(longitude + "");
+            }
         }
         actionListener();
-
-        // check if GPS enabled
-        GPSTracker gpsTracker = new GPSTracker(this);
-
-        if (gpsTracker.getIsGPSTrackingEnabled()) {
-            latitude = gpsTracker.getLatitude();
-            longitude = gpsTracker.getLongitude();
-            Log.e("lat long", gpsTracker.getLatitude() + " " + gpsTracker.getLongitude());
-            edtLatitude.setText(latitude + "");
-            edtLongitude.setText(longitude + "");
-        }
     }
 
     private void initToolbar() {
