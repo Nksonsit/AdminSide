@@ -249,22 +249,25 @@ public class AddSiteActivity extends AppCompatActivity {
 
             try {
                 if (site.getLatitude() != null && Double.parseDouble(site.getLatitude()) !=0 ) {
-                    edtLatitude.setText(latitude + "");
-                } else {
                     edtLatitude.setText(site.getLatitude());
+                } else {
+                    edtLatitude.setText(latitude + "");
                 }
             } catch (Exception e) {
                 edtLatitude.setText(latitude + "");
             }
             try {
                 if (site.getLongitude() != null && Double.parseDouble(site.getLongitude()) != 0) {
-                    edtLongitude.setText(longitude + "");
-                } else {
                     edtLongitude.setText(site.getLongitude());
+                } else {
+                    edtLongitude.setText(longitude + "");
                 }
             } catch (Exception e) {
                 edtLongitude.setText(longitude + "");
             }
+        }else{
+            edtLatitude.setText(latitude + "");
+            edtLongitude.setText(longitude + "");
         }
         actionListener();
     }
