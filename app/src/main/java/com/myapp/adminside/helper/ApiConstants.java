@@ -5,5 +5,6 @@ package com.myapp.adminside.helper;
  */
 
 public class ApiConstants {
-    public static final String BASE_URL = "http://www.youiphone7.info/speedcatch_api/";
+    //public static final String BASE_URL = "http://www.youiphone7.info/speedcatch_api/";
+	public static final String BASE_URL = "http://www.speedcatch.info/";
 }

@@ -65,8 +65,8 @@ public class StatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void setValues(Stats stuts) {
             txtSite.setText(stuts.getSite());
             txtTotalDlUl.setText((int)Float.parseFloat(stuts.getCount()) + "");
-            txtAvgDl.setText((int)Float.parseFloat(stuts.getAvgDl()) + "");
-            txtAvgUl.setText((int)Float.parseFloat(stuts.getAvgUl()) + "");
+            txtAvgDl.setText(String.format("%.2f",Float.parseFloat(stuts.getAvgDl())) + "");
+            txtAvgUl.setText(String.format("%.2f",Float.parseFloat(stuts.getAvgUl())) + "");
         }
     }
 }
